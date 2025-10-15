@@ -1,0 +1,27 @@
+🔊 ADICIONE OS SONS INTERATIVOS AQUI
+
+Arquivos necessários (sons CURTOS de 0.1-0.3 segundos):
+
+1. click.mp3
+   - Som de clique/pop suave
+   - Toca ao clicar em qualquer elemento
+
+2. hover.mp3
+   - Som sutil de "swish" ou "whoosh"
+   - Toca ao passar o mouse
+
+3. special.mp3
+   - Som futurista/espacial
+   - Toca ao clicar em elementos 3D (partículas, canvas)
+
+Onde baixar GRÁTIS:
+- Freesound.org
+  • Pesquise: "ui click", "button click", "ui hover", "space sound"
+
+- Zapsplat.com
+  • Categoria: User Interface → Buttons
+
+- Mixkit.co
+  • Categoria: Click Sounds / UI Sounds
+
+Dica: Escolha sons curtos e suaves para não incomodar!

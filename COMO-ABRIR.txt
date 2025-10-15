@@ -1,0 +1,79 @@
+# 🚀 GUIA RÁPIDO: Como Abrir com Live Server
+
+## Método 1: VS Code + Live Server (MAIS FÁCIL)
+
+### Passo 1: Instalar VS Code
+- Baixe em: https://code.visualstudio.com/
+- Instale normalmente
+
+### Passo 2: Instalar extensão Live Server
+1. Abra o VS Code
+2. Clique no ícone de extensões (quadrado na barra lateral esquerda)
+3. Pesquise: "Live Server"
+4. Clique em "Install" na extensão do Ritwick Dey
+5. Aguarde a instalação
+
+### Passo 3: Abrir o site
+1. No VS Code: File → Open Folder
+2. Selecione a pasta "aurora_site_completo"
+3. Clique direito no arquivo "index.html"
+4. Selecione "Open with Live Server"
+5. ✅ Seu navegador abrirá automaticamente em http://localhost:5500
+
+### Dica: Botão "Go Live"
+- Após instalar Live Server, aparece um botão "Go Live" no canto inferior direito
+- Clique nele para abrir o site rapidamente!
+
+---
+
+## Método 2: Python (se já tiver instalado)
+
+### No Windows:
+1. Abra o "Prompt de Comando" ou "PowerShell"
+2. Navegue até a pasta:
+   ```
+   cd caminho\paraurora_site_completo
+   ```
+3. Execute:
+   ```
+   python -m http.server 8000
+   ```
+4. Abra o navegador em: http://localhost:8000
+
+### No Mac/Linux:
+1. Abra o Terminal
+2. Navegue até a pasta:
+   ```
+   cd /caminho/para/aurora_site_completo
+   ```
+3. Execute:
+   ```
+   python3 -m http.server 8000
+   ```
+4. Abra o navegador em: http://localhost:8000
+
+---
+
+## Método 3: Node.js
+
+Se tiver Node.js instalado:
+```bash
+npx http-server
+```
+
+---
+
+## ⚠️ NÃO FUNCIONA:
+❌ Abrir index.html diretamente (duplo clique)
+   → Áudio e legendas não funcionarão!
+
+✅ SEMPRE use um servidor local!
+
+---
+
+## 🎵 Lembre-se:
+Antes de abrir, adicione seus arquivos MP3 em:
+- audio/scientific.mp3
+- sounds/click.mp3
+- sounds/hover.mp3
+- sounds/special.mp3
