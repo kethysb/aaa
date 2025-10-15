@@ -110,39 +110,17 @@
     @keyframes glow{ 0%,100%{ transform:translate(-50%,-50%) scale(1);} 50%{ transform:translate(-50%,-50%) scale(1.08);} }
     .hero-inner{position:relative; z-index:4; padding:0 20px; width:min(var(--maxw), 100%);
       display:flex; flex-direction:column; align-items:center; justify-content:center;
-      animation:fadeUp .8s ease both;}
-    .hero-floats{ position:absolute; inset:0; z-index:4; pointer-events:none; font-size:clamp(14px, 2vw, 18px); font-weight:500; }
-    .hero-float{ position:absolute; max-width:220px; padding:14px 18px; border-radius:14px; background:rgba(0,0,0,.55); box-shadow:0 10px 28px rgba(0,0,0,.45); backdrop-filter:blur(6px) saturate(130%); text-align:left; line-height:1.4; display:flex; flex-direction:column; gap:6px; }
-    .hero-float::before{ content:""; width:26px; height:2px; border-radius:999px; background:linear-gradient(90deg, rgba(255,255,255,.28), rgba(255,255,255,.85)); }
-    .hero-float strong{ font-size:clamp(12px,1.5vw,14px); letter-spacing:.14em; text-transform:uppercase; color:rgba(255,255,255,.78); }
-    .hero-float span{ color:rgba(255,255,255,.9); font-weight:600; text-shadow:0 6px 20px rgba(0,0,0,.55); }
-    .hero-float--tl{ top:12%; left:6%; }
-    .hero-float--tr{ top:18%; right:7%; text-align:right; }
-    .hero-float--tr::before{ align-self:flex-end; }
-    .hero-float--bl{ bottom:18%; left:8%; }
-    .hero-float--br{ bottom:12%; right:10%; text-align:right; }
-    .hero-float--br::before{ align-self:flex-end; }
-    @media (max-width:960px){
-      .hero-floats{
-        inset:auto 0 110px 0;
-        display:flex;
-        flex-direction:column;
-        align-items:center;
-        gap:12px;
-        transform:none;
-        padding:0 20px;
-      }
-      .hero-float{
-        position:relative;
-        max-width:none;
-        width:min(90vw, 360px);
-        text-align:left;
-      }
-      .hero-float--tr,
-      .hero-float--br{ text-align:left; }
-      .hero-float--tr::before,
-      .hero-float--br::before{ align-self:flex-start; }
-    }
+      animation:fadeUp .8s ease both; gap:clamp(16px, 4vw, 32px);}
+    .hero-pillars{ list-style:none; margin:0; padding:0; width:min(90vw, 780px);
+      display:grid; grid-template-columns:repeat(auto-fit, minmax(160px, 1fr)); gap:clamp(12px, 3vw, 24px);
+      font-size:clamp(14px, 2vw, 18px); font-weight:500; }
+    .hero-pillar{ position:relative; padding:18px 20px; border-radius:18px;
+      background:rgba(0,0,0,.52); box-shadow:0 18px 45px rgba(0,0,0,.45); backdrop-filter:blur(10px) saturate(140%);
+      border:1px solid rgba(255,255,255,.14); display:flex; flex-direction:column; gap:8px; text-align:left; }
+    .hero-pillar::before{ content:""; width:32px; height:2px; border-radius:999px;
+      background:linear-gradient(90deg, rgba(255,255,255,.28), rgba(255,255,255,.85)); }
+    .hero-pillar__label{ font-size:clamp(11px, 1.4vw, 13px); letter-spacing:.2em; text-transform:uppercase; color:rgba(255,255,255,.75); }
+    .hero-pillar__text{ color:rgba(255,255,255,.92); font-weight:600; text-shadow:0 6px 20px rgba(0,0,0,.6); }
     h1{
       font-family: "Playfair Display", Georgia, serif; font-weight:700;
       font-size: clamp(36px, 7vw, 88px); line-height:1.05; margin:0 0 16px;
@@ -357,24 +335,6 @@
     </div>
     <div aria-hidden="true" class="particles">
     </div>
-    <div aria-hidden="true" class="hero-floats">
-     <div class="hero-float hero-float--tl">
-      <strong>Experiência</strong>
-      <span>Narrativas sensoriais guiadas por dados e IA.</span>
-     </div>
-     <div class="hero-float hero-float--tr">
-      <strong>Velocidade</strong>
-      <span>Lançamentos em semanas graças a pipelines generativos.</span>
-     </div>
-     <div class="hero-float hero-float--bl">
-      <strong>Confiança</strong>
-      <span>Equipe multidisciplinar com entregas auditáveis.</span>
-     </div>
-     <div class="hero-float hero-float--br">
-      <strong>Impacto</strong>
-      <span>Campanhas que transformam curiosidade em conversão.</span>
-     </div>
-    </div>
     <div class="hero-inner">
      <h1 class="chroma typewriter">
       Aurora Performance
@@ -382,6 +342,24 @@
      <p class="subtitle chroma">
       Onde Inovação vira Resultado.
      </p>
+     <ul aria-label="Pilares da Aurora" class="hero-pillars" role="list">
+      <li class="hero-pillar" role="listitem">
+       <span class="hero-pillar__label">Experiência</span>
+       <span class="hero-pillar__text">Narrativas sensoriais guiadas por dados e IA.</span>
+      </li>
+      <li class="hero-pillar" role="listitem">
+       <span class="hero-pillar__label">Velocidade</span>
+       <span class="hero-pillar__text">Lançamentos em semanas com pipelines generativos.</span>
+      </li>
+      <li class="hero-pillar" role="listitem">
+       <span class="hero-pillar__label">Confiança</span>
+       <span class="hero-pillar__text">Equipe multidisciplinar com entregas auditáveis.</span>
+      </li>
+      <li class="hero-pillar" role="listitem">
+       <span class="hero-pillar__label">Impacto</span>
+       <span class="hero-pillar__text">Campanhas que transformam curiosidade em conversão.</span>
+      </li>
+     </ul>
     </div>
     <button aria-label="Rolar para baixo" class="scroll-indicator" onclick="document.querySelector('#work').scrollIntoView({behavior:'smooth'})">
      <svg aria-hidden="true" fill="none" height="18" viewbox="0 0 24 24" width="18" xmlns="http://www.w3.org/2000/svg">
