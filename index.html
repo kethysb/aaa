@@ -89,6 +89,15 @@
       filter:grayscale(1) contrast(1.06) brightness(.98);
       transform:scale(1.02);
     }
+    .hero-caption{
+      position:absolute; left:50%; bottom:120px; transform:translateX(-50%);
+      z-index:5; max-width:min(640px, 80vw);
+      background:rgba(0,0,0,.55); border-radius:12px; padding:14px 20px;
+      font-size:clamp(16px, 2.4vw, 22px); line-height:1.4; font-weight:500;
+      box-shadow:0 18px 50px rgba(0,0,0,.45);
+      backdrop-filter:blur(8px) saturate(140%);
+    }
+    .hero-caption[aria-hidden="true"]{display:none}
     /* brilho/halo animado atrás do título */
     .hero-glow{ position:absolute; inset:0; z-index:3; pointer-events:none; }
     .hero-glow::before{
@@ -307,7 +316,11 @@
      <source src="853874-hd_1920_1080_25fps.mp4" type="video/mp4"/>
      <!-- Fallback online -->
      <source src="https://storage.coverr.co/videos/coverr-subway-station-people-1437/1080p.mp4" type="video/mp4"/>
+     <track default="" kind="subtitles" label="Português (Brasil)" src="captions.vtt" srclang="pt-BR"/>
     </video>
+    <div aria-hidden="true" class="hero-caption" id="heroCaption">
+     Legendas aparecerão aqui...
+    </div>
     <div aria-hidden="true" class="hero-glow">
     </div>
     <div aria-hidden="true" class="particles">
@@ -1558,6 +1571,32 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 
     // ========== SISTEMA DE LEGENDAS ==========
+    const heroVideo = document.querySelector('.hero-video');
+    const heroCaptionDisplay = document.getElementById('heroCaption');
+
+    if(heroVideo && heroCaptionDisplay) {
+        heroVideo.addEventListener('loadedmetadata', function() {
+            const heroTrack = heroVideo.textTracks[0];
+            if(heroTrack) {
+                heroTrack.mode = 'hidden';
+
+                const updateHeroCaption = () => {
+                    const cues = heroTrack.activeCues;
+                    if(cues && cues.length > 0) {
+                        heroCaptionDisplay.textContent = cues[0].text;
+                        heroCaptionDisplay.setAttribute('aria-hidden', 'false');
+                    } else {
+                        heroCaptionDisplay.textContent = 'Legendas aparecerão aqui...';
+                        heroCaptionDisplay.setAttribute('aria-hidden', 'true');
+                    }
+                };
+
+                heroTrack.addEventListener('cuechange', updateHeroCaption);
+                updateHeroCaption();
+            }
+        });
+    }
+
     const audio = document.getElementById('scientificAudio');
     const captionDisplay = document.getElementById('captionDisplay');
 

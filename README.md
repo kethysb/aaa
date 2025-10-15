@@ -38,6 +38,16 @@
 
 ## 🚀 Como usar:
 
+### Opção 0: Script automático `abrir_site.py`
+1. Certifique-se de ter o Python 3 instalado.
+2. No terminal, execute:
+   ```bash
+   python abrir_site.py
+   ```
+   *(Use `python3` no macOS/Linux, se necessário.)*
+3. O navegador abrirá automaticamente em http://127.0.0.1:5500/index.html.
+4. Pressione **CTRL+C** no terminal para encerrar o servidor quando terminar.
+
 ### Opção 1: VS Code Live Server (RECOMENDADO)
 1. Abra a pasta no VS Code
 2. Instale extensão "Live Server"
