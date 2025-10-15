@@ -1,5 +1,27 @@
 # 🚀 GUIA RÁPIDO: Como Abrir com Live Server
 
+## Método 0: Abrir direto (sem servidor)
+
+1. Baixe a pasta completa do projeto.
+2. Clique duas vezes em `index.html` (ou arraste para o navegador).
+3. Dê um clique na página para liberar o áudio (requisito dos navegadores modernos).
+4. As legendas já aparecem offline graças ao fallback integrado.
+
+---
+
+## Método 1: Script automático (MAIS RÁPIDO)
+
+1. Instale o [Python 3](https://www.python.org/) se ainda não tiver.
+2. No terminal, dentro da pasta do projeto, execute:
+   ```
+   python abrir_site.py
+   ```
+   *(No macOS/Linux use `python3` se necessário.)*
+3. O navegador abrirá sozinho em http://127.0.0.1:5500/index.html.
+4. Para encerrar, volte ao terminal e pressione **CTRL+C**.
+
+---
+
 ## Método 1: VS Code + Live Server (MAIS FÁCIL)
 
 ### Passo 1: Instalar VS Code
@@ -63,11 +85,9 @@ npx http-server
 
 ---
 
-## ⚠️ NÃO FUNCIONA:
-❌ Abrir index.html diretamente (duplo clique)
-   → Áudio e legendas não funcionarão!
-
-✅ SEMPRE use um servidor local!
+## ⚠️ Observações:
+- Abrir direto funciona, mas o navegador pode bloquear autoplay até você interagir.
+- Os métodos com servidor continuam disponíveis para quem preferir.
 
 ---
 

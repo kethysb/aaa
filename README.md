@@ -38,6 +38,22 @@
 
 ## 🚀 Como usar:
 
+### Opção 0: Abrir direto (download e clique duplo)
+1. Baixe ou extraia a pasta completa do projeto.
+2. Dê dois cliques em `index.html` (ou abra com o navegador de sua preferência).
+3. Clique uma vez na página para liberar o áudio (exigência dos navegadores).
+4. As legendas funcionam mesmo offline graças ao fallback embutido.
+
+### Opção 1: Script automático `abrir_site.py`
+1. Certifique-se de ter o Python 3 instalado.
+2. No terminal, execute:
+   ```bash
+   python abrir_site.py
+   ```
+   *(Use `python3` no macOS/Linux, se necessário.)*
+3. O navegador abrirá automaticamente em http://127.0.0.1:5500/index.html.
+4. Pressione **CTRL+C** no terminal para encerrar o servidor quando terminar.
+
 ### Opção 1: VS Code Live Server (RECOMENDADO)
 1. Abra a pasta no VS Code
 2. Instale extensão "Live Server"
@@ -83,15 +99,14 @@ Seu texto aqui
 
 ## ❗ IMPORTANTE:
 
-- Não funciona abrindo index.html diretamente (use servidor local)
-- Navegadores bloqueiam áudio sem interação do usuário (normal)
-- Adicione seus arquivos MP3 nas pastas corretas
-- Mantenha os nomes dos arquivos exatamente como indicado
+- Ao abrir direto (file://) o navegador pode pedir um clique para liberar o áudio — isso é normal.
+- Adicione seus arquivos MP3 nas pastas corretas.
+- Mantenha os nomes dos arquivos exatamente como indicado.
 
 ## 📞 Problemas?
 
 1. Sons não tocam → Adicione os arquivos MP3
-2. Legendas não aparecem → Use servidor local (não abra direto)
+2. Legendas não aparecem → Clique na página após abrir ou utilize um dos métodos com servidor
 3. Player não aparece → Verifique console do navegador (F12)
 
 Divirta-se! 🎉

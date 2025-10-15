@@ -89,6 +89,15 @@
       filter:grayscale(1) contrast(1.06) brightness(.98);
       transform:scale(1.02);
     }
+    .hero-caption{
+      position:absolute; left:50%; bottom:120px; transform:translateX(-50%);
+      z-index:5; max-width:min(640px, 80vw);
+      background:rgba(0,0,0,.55); border-radius:12px; padding:14px 20px;
+      font-size:clamp(16px, 2.4vw, 22px); line-height:1.4; font-weight:500;
+      box-shadow:0 18px 50px rgba(0,0,0,.45);
+      backdrop-filter:blur(8px) saturate(140%);
+    }
+    .hero-caption[aria-hidden="true"]{display:none}
     /* brilho/halo animado atrás do título */
     .hero-glow{ position:absolute; inset:0; z-index:3; pointer-events:none; }
     .hero-glow::before{
@@ -102,6 +111,38 @@
     .hero-inner{position:relative; z-index:4; padding:0 20px; width:min(var(--maxw), 100%);
       display:flex; flex-direction:column; align-items:center; justify-content:center;
       animation:fadeUp .8s ease both;}
+    .hero-floats{ position:absolute; inset:0; z-index:4; pointer-events:none; font-size:clamp(14px, 2vw, 18px); font-weight:500; }
+    .hero-float{ position:absolute; max-width:220px; padding:14px 18px; border-radius:14px; background:rgba(0,0,0,.55); box-shadow:0 10px 28px rgba(0,0,0,.45); backdrop-filter:blur(6px) saturate(130%); text-align:left; line-height:1.4; display:flex; flex-direction:column; gap:6px; }
+    .hero-float::before{ content:""; width:26px; height:2px; border-radius:999px; background:linear-gradient(90deg, rgba(255,255,255,.28), rgba(255,255,255,.85)); }
+    .hero-float strong{ font-size:clamp(12px,1.5vw,14px); letter-spacing:.14em; text-transform:uppercase; color:rgba(255,255,255,.78); }
+    .hero-float span{ color:rgba(255,255,255,.9); font-weight:600; text-shadow:0 6px 20px rgba(0,0,0,.55); }
+    .hero-float--tl{ top:12%; left:6%; }
+    .hero-float--tr{ top:18%; right:7%; text-align:right; }
+    .hero-float--tr::before{ align-self:flex-end; }
+    .hero-float--bl{ bottom:18%; left:8%; }
+    .hero-float--br{ bottom:12%; right:10%; text-align:right; }
+    .hero-float--br::before{ align-self:flex-end; }
+    @media (max-width:960px){
+      .hero-floats{
+        inset:auto 0 110px 0;
+        display:flex;
+        flex-direction:column;
+        align-items:center;
+        gap:12px;
+        transform:none;
+        padding:0 20px;
+      }
+      .hero-float{
+        position:relative;
+        max-width:none;
+        width:min(90vw, 360px);
+        text-align:left;
+      }
+      .hero-float--tr,
+      .hero-float--br{ text-align:left; }
+      .hero-float--tr::before,
+      .hero-float--br::before{ align-self:flex-start; }
+    }
     h1{
       font-family: "Playfair Display", Georgia, serif; font-weight:700;
       font-size: clamp(36px, 7vw, 88px); line-height:1.05; margin:0 0 16px;
@@ -307,10 +348,32 @@
      <source src="853874-hd_1920_1080_25fps.mp4" type="video/mp4"/>
      <!-- Fallback online -->
      <source src="https://storage.coverr.co/videos/coverr-subway-station-people-1437/1080p.mp4" type="video/mp4"/>
+     <track default="" kind="subtitles" label="Português (Brasil)" src="captions.vtt" srclang="pt-BR"/>
     </video>
+    <div aria-hidden="true" class="hero-caption" id="heroCaption">
+     Legendas aparecerão aqui...
+    </div>
     <div aria-hidden="true" class="hero-glow">
     </div>
     <div aria-hidden="true" class="particles">
+    </div>
+    <div aria-hidden="true" class="hero-floats">
+     <div class="hero-float hero-float--tl">
+      <strong>Experiência</strong>
+      <span>Narrativas sensoriais guiadas por dados e IA.</span>
+     </div>
+     <div class="hero-float hero-float--tr">
+      <strong>Velocidade</strong>
+      <span>Lançamentos em semanas graças a pipelines generativos.</span>
+     </div>
+     <div class="hero-float hero-float--bl">
+      <strong>Confiança</strong>
+      <span>Equipe multidisciplinar com entregas auditáveis.</span>
+     </div>
+     <div class="hero-float hero-float--br">
+      <strong>Impacto</strong>
+      <span>Campanhas que transformam curiosidade em conversão.</span>
+     </div>
     </div>
     <div class="hero-inner">
      <h1 class="chroma typewriter">
@@ -1558,29 +1621,93 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 
     // ========== SISTEMA DE LEGENDAS ==========
+    const CAPTION_PLACEHOLDER = 'Legendas aparecerão aqui...';
+    const FALLBACK_CUES = [
+        { start: 0, end: 5, text: 'FUTURE TECHNOLOGY - Tecnologia do Futuro' },
+        { start: 5.001, end: 10, text: 'INNOVATION BEYOND BOUNDARIES - Inovação Além das Fronteiras' },
+        { start: 10.001, end: 15, text: 'Explore visualizações 3D interativas com partículas cósmicas' },
+        { start: 15.001, end: 20, text: 'Clique nos elementos para ouvir sons interativos' },
+        { start: 20.001, end: 25, text: 'Ciência baseada em dados e evidências' },
+        { start: 25.001, end: 30, text: 'Construindo o futuro com tecnologia avançada' }
+    ];
+
+    function showCaption(display, text, highlight){
+        if(!display) return;
+        if(text){
+            display.textContent = text;
+            display.setAttribute('aria-hidden', 'false');
+        } else {
+            display.textContent = CAPTION_PLACEHOLDER;
+            display.setAttribute('aria-hidden', 'true');
+        }
+        if(typeof highlight === 'boolean'){
+            display.style.background = highlight ? 'rgba(255,255,255,0.15)' : 'rgba(255,255,255,0.1)';
+        }
+    }
+
+    function attachNativeTrack(media, track, display, highlightBackground = null){
+        if(!media || !track || !display) return false;
+        try {
+            track.mode = 'hidden';
+            const update = () => {
+                const cues = track.activeCues;
+                if(cues && cues.length){
+                    showCaption(display, cues[0].text, highlightBackground);
+                } else {
+                    showCaption(display, '', highlightBackground);
+                }
+            };
+            track.addEventListener('cuechange', update);
+            update();
+            return true;
+        } catch (error){
+            console.warn('Legenda nativa indisponível, usando fallback manual.', error);
+            return false;
+        }
+    }
+
+    function attachFallbackSync(media, display, cues, highlightBackground = null){
+        if(!media || !display || !Array.isArray(cues)) return;
+        const sync = () => {
+            const current = media.currentTime;
+            const cue = cues.find(item => current >= item.start && current <= item.end);
+            if(cue){
+                showCaption(display, cue.text, highlightBackground);
+            } else {
+                showCaption(display, '', highlightBackground);
+            }
+        };
+        ['timeupdate','seeked','play','pause','ended'].forEach(evt => media.addEventListener(evt, sync));
+        sync();
+        console.log('📝 Legendas manuais sincronizadas (modo offline).');
+    }
+
+    const heroVideo = document.querySelector('.hero-video');
+    const heroCaptionDisplay = document.getElementById('heroCaption');
+    if(heroVideo && heroCaptionDisplay){
+        const initHeroCaptions = () => {
+            const heroTrack = heroVideo.textTracks ? heroVideo.textTracks[0] : null;
+            const hasNativeTrack = heroTrack && attachNativeTrack(heroVideo, heroTrack, heroCaptionDisplay);
+            if(!hasNativeTrack){
+                attachFallbackSync(heroVideo, heroCaptionDisplay, FALLBACK_CUES);
+            }
+        };
+        if(heroVideo.readyState >= 1) initHeroCaptions();
+        else heroVideo.addEventListener('loadedmetadata', initHeroCaptions, { once: true });
+    }
+
     const audio = document.getElementById('scientificAudio');
     const captionDisplay = document.getElementById('captionDisplay');
-
-    if(audio && captionDisplay) {
-        // Aguardar carregamento das tracks
-        audio.addEventListener('loadedmetadata', function() {
-            const track = audio.textTracks[0];
-            if(track) {
-                track.mode = 'hidden'; // Esconder legendas nativas
-
-                // Atualizar display customizado
-                track.addEventListener('cuechange', function() {
-                    const cues = track.activeCues;
-                    if(cues && cues.length > 0) {
-                        captionDisplay.textContent = cues[0].text;
-                        captionDisplay.style.background = 'rgba(255,255,255,0.15)';
-                    } else {
-                        captionDisplay.textContent = 'Legendas aparecerão aqui...';
-                        captionDisplay.style.background = 'rgba(255,255,255,0.1)';
-                    }
-                });
+    if(audio && captionDisplay){
+        const initAudioCaptions = () => {
+            const audioTrack = audio.textTracks ? audio.textTracks[0] : null;
+            const hasNativeTrack = audioTrack && attachNativeTrack(audio, audioTrack, captionDisplay, true);
+            if(!hasNativeTrack){
+                attachFallbackSync(audio, captionDisplay, FALLBACK_CUES, true);
             }
-        });
+        };
+        if(audio.readyState >= 1) initAudioCaptions();
+        else audio.addEventListener('loadedmetadata', initAudioCaptions, { once: true });
     }
 
     console.log('✅ Legendas sincronizadas ativadas!');
